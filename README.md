@@ -68,6 +68,16 @@ jobs:
 ### Description
 The **Vulnerability Management** process includes integrating tools like **SonarQube**, **DefectDojo**, and **Snyk** to track, manage, and visualize security vulnerabilities. These tools help in providing clear overviews of identified vulnerabilities, their severity levels, and remediation recommendations.
 
+### Snyk Vulnerability Management
+**Snyk** provides Software Composition Analysis (SCA) by identifying vulnerabilities in the application dependencies. This is part of the SCA step in the pipeline.
+
+Below are screenshots from **Snyk** showing the detected vulnerabilities:
+
+![Snyk Dashboard](image4.png)
+![Snyk Metrics](image5.png)
+
+---
+
 ### SonarQube
 **SonarQube** is used to conduct **SAST** and provide a detailed summary of the code quality and vulnerabilities. It categorizes findings into critical, major, and minor vulnerabilities.
 
@@ -91,15 +101,7 @@ The **DefectDojo** report PDF below shows the findings of vulnerabilities detect
 
 [Download DefectDojo Vulnerability Report](report.pdf)
 
-### Snyk Vulnerability Management
-**Snyk** provides Software Composition Analysis (SCA) by identifying vulnerabilities in the application dependencies. This is part of the SCA step in the pipeline.
 
-Below are screenshots from **Snyk** showing the detected vulnerabilities:
-
-![Snyk Dashboard](image4.png)
-![Snyk Metrics](image5.png)
-
----
 
 ## Automated Redeployment After Source Code Changes
 
@@ -126,33 +128,6 @@ jobs:
         run: |
           ssh -i ${{ secrets.SSH_PRIVATE_KEY }} user@server-ip "docker pull juicshop:latest && docker run -d -p 3000:3000 juicshop:latest"
 ```
-
----
-
-## Screenshots
-
-### Snyk Dashboard
-Below are images of the **Snyk Dashboard**, showcasing the vulnerabilities found in dependencies:
-
-![Snyk Dashboard](path_to_snyk_image1.png)
-![Snyk Metrics](path_to_snyk_image2.png)
-
-### DefectDojo Dashboard and Metrics
-Here are two images showing the vulnerability summary and metrics from **DefectDojo**:
-
-![DefectDojo Dashboard](path_to_defectdojo_image1.png)
-![DefectDojo Metrics](path_to_defectdojo_image2.png)
-
-### SonarQube Summary
-Two images below represent the SonarQube vulnerability summary and metrics:
-
-![SonarQube Dashboard](path_to_sonar_image1.png)
-![SonarQube Metrics](path_to_sonar_image2.png)
-
-### DefectDojo Vulnerability Report
-A **PDF report** of the vulnerabilities found by **DefectDojo** is available for download:
-
-[Download DefectDojo Vulnerability Report](path_to_defectdojo_report.pdf)
 
 ---
 
