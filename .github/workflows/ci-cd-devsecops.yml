@@ -52,6 +52,25 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+#DAST with OWASP ZAP
+  owasp-zap:
+    name: Dynamic Application Security Testing (DAST)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Juice Shop (Docker)
+        run: docker run -d -p 3000:3000 bkimminich/juice-shop
+
+      - name: Run OWASP ZAP
+        run: |
+          docker run -v $(pwd):/zap/wrk -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000 -r zap-report.html
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-report
+          path: zap-report.html
+
+
 
 
 
