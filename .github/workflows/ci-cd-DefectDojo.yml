@@ -1,0 +1,28 @@
+name: CI/CD Pipeline with DefectDojo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  defectdojo:
+    name: Send Results to DefectDojo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run OWASP ZAP (DAST)
+        run: |
+          docker run -d -p 3000:3000 bkimminich/juice-shop
+          docker run -v $(pwd):/zap/wrk -t owasp/zap2docker-stable zap-baseline.py -t http://localhost:3000 -r zap-report.html
+
+      - name: Send ZAP Results to DefectDojo
+        run: |
+          curl -X POST \
+            -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_KEY }}" \
+            -F 'file=@zap-report.html' \
+            -F 'engagement=1' \
+            -F 'test=1' \
+            https://<your-defectdojo-url>/api/v2/import-scan/
