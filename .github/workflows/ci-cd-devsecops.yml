@@ -33,10 +33,24 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
-          languages: javascript  # Langage utilisé par Juice Shop
+          languages: javascript  
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
+
+#Snyk Analysis : SCA with Snyk
+
+  snyk:
+    name: Software Composition Analysis (SCA)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Snyk to check dependencies
+        uses: snyk/actions/scan@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 
 
