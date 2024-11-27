@@ -1,0 +1,51 @@
+name: SCA - Software Composition Analysis
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  sca:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Etape 1 : Installer Snyk (outil de SCA)
+    - name: Set up Snyk
+      run: |
+        curl -sL https://github.com/snyk/snyk/releases/download/v1.1005.0/snyk-linux.tar.gz | tar xz
+        sudo mv snyk /usr/local/bin/
+
+    # Etape 2 : Authentifier Snyk avec votre token API
+    - name: Authenticate with Snyk
+      run: snyk auth ${{ secrets.SNYK_API_TOKEN }}
+
+    # Etape 3 : Exécuter l'analyse SCA pour détecter les vulnérabilités dans les dépendances
+    - name: Run Snyk SCA
+      run: snyk test --all-projects --severity-threshold=high --json > snyk-report.json
+
+    # Etape 4 : Ajouter un rapport Snyk (au format JSON)
+    - name: Upload Snyk report
+      uses: actions/upload-artifact@v3
+      with:
+        name: snyk-report
+        path: snyk-report.json
+
+    # Etape 5 : Ajouter une condition pour échouer le pipeline en cas de vulnérabilités sévères
+    - name: Fail if vulnerabilities found
+      run: |
+        SNYK_STATUS=$(cat snyk-report.json | jq '.issues | length')
+        if [ "$SNYK_STATUS" -gt 0 ]; then
+          echo "Vulnerabilities found, failing the build."
+          exit 1
+        else
+          echo "No vulnerabilities found."
+        fi
