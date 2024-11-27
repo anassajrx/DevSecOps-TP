@@ -74,8 +74,8 @@ The **Vulnerability Management** process includes integrating tools like **Sonar
 #### SonarQube Summary
 Below is an example of the summary dashboard showing vulnerability distribution:
 
-![SonarQube Dashboard](path_to_sonar_image1.png)
-![SonarQube Metrics](path_to_sonar_image2.png)
+![SonarQube Dashboard](image1.png)
+![SonarQube Metrics](image2.png)
 
 ### DefectDojo
 **DefectDojo** is used for vulnerability tracking and reporting. It consolidates results from various security tests (SAST, DAST, etc.) and provides metrics on vulnerabilities found.
@@ -83,21 +83,21 @@ Below is an example of the summary dashboard showing vulnerability distribution:
 #### DefectDojo Vulnerability Summary
 The following images show a summary of vulnerabilities in DefectDojo:
 
-![DefectDojo Dashboard](path_to_defectdojo_image1.png)
-![DefectDojo Metrics](path_to_defectdojo_image2.png)
+![DefectDojo Dashboard](image3.png)
+![DefectDojo Metrics](image6.png)
 
 #### DefectDojo Vulnerability Report
 The **DefectDojo** report PDF below shows the findings of vulnerabilities detected during security testing:
 
-[Download DefectDojo Vulnerability Report](path_to_defectdojo_report.pdf)
+[Download DefectDojo Vulnerability Report](report.pdf)
 
 ### Snyk Vulnerability Management
 **Snyk** provides Software Composition Analysis (SCA) by identifying vulnerabilities in the application dependencies. This is part of the SCA step in the pipeline.
 
 Below are screenshots from **Snyk** showing the detected vulnerabilities:
 
-![Snyk Dashboard](path_to_snyk_image1.png)
-![Snyk Metrics](path_to_snyk_image2.png)
+![Snyk Dashboard](image4.png)
+![Snyk Metrics](image5.png)
 
 ---
 
