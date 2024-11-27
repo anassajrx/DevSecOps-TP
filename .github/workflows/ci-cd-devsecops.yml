@@ -20,3 +20,23 @@ jobs:
 
       - name: Run Juice Shop
         run: docker run -d -p 3000:3000 bkimminich/juice-shop
+
+#CodeQL Analysis 
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: nodejs
+
+      - name: Autobuild CodeQL Database
+        uses: github/codeql-action/autobuild@v1
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+
+      - name: Stop Juice Shop
+        run: docker stop $(docker ps -a -q --filter ancestor=bkimminich/juice-shop --format="{{.ID}}")
+
+
+
+
+
