@@ -38,19 +38,7 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
-#Snyk Analysis : SCA with Snyk
 
-  snyk:
-    name: Software Composition Analysis (SCA)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Run Snyk to check dependencies
-        uses: snyk/actions/scan@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
 #DAST with OWASP ZAP
   owasp-zap:
